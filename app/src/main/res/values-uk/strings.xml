@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Module_3_Lesson_2_hw_1_Compose</string>
+    <string name="language">Мова:</string>
+    <string name="languageEng">ENG</string>
+    <string name="languageUkr">УКР</string>
+    <string name="username">Ім\'я користувача:</string>
+    <string name="buttonEdit">Ред.</string>
+    <string name="buttonSave">Збер.</string>
+    <string name="graphics">Графічний режим:</string>
+    <string name="graphicsLow">Низ</string>
+    <string name="graphicsHigh">Вис</string>
+    <string name="autosave">Авто-збереження:</string>
+    <string name="autosaveOff">Вимкнено</string>
+    <string name="autosaveOn">Увімкнено</string>
+</resources>

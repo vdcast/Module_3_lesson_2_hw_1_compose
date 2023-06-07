@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Module_3_Lesson_2_hw_1_Compose</string>
-    <string name="language">Language</string>
+    <string name="language">Language:</string>
+    <string name="languageEng">ENG</string>
+    <string name="languageUkr">UKR</string>
+    <string name="username">Username:</string>
+    <string name="buttonEdit">Edit</string>
+    <string name="buttonSave">Save</string>
+    <string name="graphics">Graphics mode:</string>
+    <string name="graphicsLow">Low</string>
+    <string name="graphicsHigh">High</string>
+    <string name="autosave">Auto-save:</string>
+    <string name="autosaveOff">Off</string>
+    <string name="autosaveOn">On</string>
 </resources>

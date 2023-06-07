@@ -11,16 +11,24 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.module_3_lesson_2_hw_1_compose.ui.theme.Module_3_Lesson_2_hw_1_ComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,6 +44,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(){
 
@@ -43,6 +52,7 @@ fun MainScreen(){
 
     val language = prefs.getLanguage()
     val languageSwitch = prefs.getLanguageSwitch()
+    val username = prefs.getUsername()
     val graphics = prefs.getGraphics()
     val graphicsSwitch = prefs.getGraphicsSwitch()
     val autosave = prefs.getAutosave()
@@ -50,12 +60,20 @@ fun MainScreen(){
 
     val (isCheckedLanguage, setCheckedLanguage) = remember { mutableStateOf(languageSwitch) }
     val languageState = remember { mutableStateOf(language) }
+    val usernameState = remember { mutableStateOf(username) }
     val (isCheckedGraphics, setCheckedGraphics) = remember { mutableStateOf(graphicsSwitch) }
     val graphicsState = remember { mutableStateOf(graphics) }
     val (isCheckedAutosave, setCheckedAutosave) = remember { mutableStateOf(autosaveSwitch) }
     val autosaveState = remember { mutableStateOf(autosave) }
 
-    Log.d("MYLOG", language)
+    val isEditingUsername = remember { mutableStateOf(false) }
+    val editButtonText = remember { mutableStateOf("Edit") }
+
+//    val textFieldUsernameState = remember { mutableStateOf("kek") }
+
+
+    val focusManager = LocalFocusManager.current
+
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -67,7 +85,7 @@ fun MainScreen(){
                 horizontalArrangement = Arrangement.SpaceEvenly
             ){
                 Text(
-                    text = "Language",
+                    text = "Language:",
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
                 Text(
@@ -95,17 +113,46 @@ fun MainScreen(){
                 horizontalArrangement = Arrangement.SpaceEvenly
             ){
                 Text(
-                    text = "Gamer username",
+                    text = "Username:",
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
-                Text(
-                    text = "vdcast",
-                    modifier = Modifier.padding(vertical = 8.dp)
-                )
+
+                if (isEditingUsername.value){
+                    TextField(
+                        value = usernameState.value,
+                        onValueChange = {newValue ->
+                            usernameState.value = newValue
+                        },
+                        keyboardOptions = KeyboardOptions(
+                            imeAction = ImeAction.Done
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                focusManager.clearFocus()
+                            }
+                        ),
+                        modifier = Modifier
+                            .padding(start = 12.dp, end = 12.dp)
+                            .fillMaxWidth()
+                            .weight(4f),
+                        textStyle = TextStyle(fontSize = 16.sp)
+                    )
+                } else {
+                    Text(
+                        text = usernameState.value,
+                        modifier = Modifier.padding(vertical = 8.dp)
+                    )
+                }
+
+
                 Button(
-                    onClick = {}
+                    onClick = {
+                        isEditingUsername.value = !isEditingUsername.value
+                        editButtonText.value = if (isEditingUsername.value) "Save" else "Edit"
+                        prefs.setUsername(usernameState.value)
+                    }
                 ) {
-                    Text(text = "Edit")
+                    Text(text = editButtonText.value)
                 }
             }
             Row(
@@ -113,7 +160,7 @@ fun MainScreen(){
                 horizontalArrangement = Arrangement.SpaceEvenly
             ){
                 Text(
-                    text = "Graphics mode",
+                    text = "Graphics mode:",
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
                 Text(
@@ -141,7 +188,7 @@ fun MainScreen(){
                 horizontalArrangement = Arrangement.SpaceEvenly
             ){
                 Text(
-                    text = "Auto-save",
+                    text = "Auto-save:",
                     modifier = Modifier.padding(vertical = 8.dp)
                 )
                 Text(

@@ -23,6 +23,17 @@ class SharedPrefs(context: Context) {
         return language
     }
 
+    fun setUsername(username: String){
+        prefs.edit().putString(USERNAME, username).apply()
+    }
+    fun getUsername(): String {
+        val username: String =
+            if (prefs.getString(USERNAME, "Default") != null){
+                prefs.getString(USERNAME, "Default")!!
+            } else "Default"
+        return username
+    }
+
     fun setLanguageSwitch(languageSwitch: Boolean){
         prefs.edit().putBoolean(LANGUAGESWITCH, languageSwitch).apply()
     }
