@@ -6,7 +6,7 @@ Advanced Intent, SharedPreferences.
 
 **Task:**
 
-Create a program to save settings. Those. when the system is restarted, the selected settings should not be changed.
+Create a program to save settings. When the system is restarted, the selected settings should not be changed.
 Settings:
 1) Language en/ua (Switch).
 2) Gamer nick (EditText).
